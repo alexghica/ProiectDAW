@@ -10,9 +10,10 @@ namespace ProiectDAW.Models
     {
         [Key]
         public int AdresaId { get; set; }
+        public string AdresaName { get; set; }
         public int FacultateId { get; set; }
         public Facultate Facultate { get; set; }
-        public string AdresaName { get; set; }
+       // public string AdresaName { get; set; }
 
     }
 }

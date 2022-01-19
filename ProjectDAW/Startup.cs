@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProiectDAW.Data;
+using ProjectDAW.Repositories;
+using ProjectDAW.Services;
+using ProjectDAW.Services.IServices;
 
 namespace ProjectDAW
 {
@@ -30,6 +33,8 @@ namespace ProjectDAW
             });
 
             services.AddDbContext<FacultateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IAdresaRepository, AdresaRepository>();
+            services.AddTransient<IAdresaService, AdresaService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
