@@ -9,7 +9,7 @@ using ProiectDAW.Data;
 namespace ProjectDAW.Migrations
 {
     [DbContext(typeof(FacultateContext))]
-    [Migration("20220118124923_InitialCreate")]
+    [Migration("20220119123115_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,9 +30,6 @@ namespace ProjectDAW.Migrations
                     b.Property<string>("AdresaName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FacultateId")
-                        .HasColumnType("int");
-
                     b.HasKey("AdresaId");
 
                     b.ToTable("Adresa");
@@ -41,12 +38,20 @@ namespace ProjectDAW.Migrations
             modelBuilder.Entity("ProiectDAW.Models.Facultate", b =>
                 {
                     b.Property<int>("FacultateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AdresaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nume")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FacultateId");
+
+                    b.HasIndex("AdresaId")
+                        .IsUnique();
 
                     b.ToTable("Facultate");
                 });
@@ -115,7 +120,7 @@ namespace ProjectDAW.Migrations
                 {
                     b.HasOne("ProiectDAW.Models.Adresa", "Adresa")
                         .WithOne("Facultate")
-                        .HasForeignKey("ProiectDAW.Models.Facultate", "FacultateId")
+                        .HasForeignKey("ProiectDAW.Models.Facultate", "AdresaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

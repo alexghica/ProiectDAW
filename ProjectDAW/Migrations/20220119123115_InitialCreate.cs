@@ -12,7 +12,6 @@ namespace ProjectDAW.Migrations
                 {
                     AdresaId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FacultateId = table.Column<int>(type: "int", nullable: false),
                     AdresaName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -37,15 +36,17 @@ namespace ProjectDAW.Migrations
                 name: "Facultate",
                 columns: table => new
                 {
-                    FacultateId = table.Column<int>(type: "int", nullable: false),
-                    Nume = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FacultateId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nume = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdresaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Facultate", x => x.FacultateId);
                     table.ForeignKey(
-                        name: "FK_Facultate_Adresa_FacultateId",
-                        column: x => x.FacultateId,
+                        name: "FK_Facultate_Adresa_AdresaId",
+                        column: x => x.AdresaId,
                         principalTable: "Adresa",
                         principalColumn: "AdresaId",
                         onDelete: ReferentialAction.Cascade);
@@ -98,6 +99,12 @@ namespace ProjectDAW.Migrations
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Facultate_AdresaId",
+                table: "Facultate",
+                column: "AdresaId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",

@@ -14,13 +14,13 @@ namespace ProjectDAW.Repositories
         {
 
         }
-        public Facultate GetFacultateaAllDetails(int id)
+        public Facultate GetFacultateAllDetails(int id)
         {
             return _table.Where(arg => arg.FacultateId == id)
                 .FirstOrDefault();
         }
 
-        public List<Facultate> GetFacultatiAllDetails()
+        public List<Facultate> GetFacultateAllDetails()
         {
             return _table
                 .ToList();

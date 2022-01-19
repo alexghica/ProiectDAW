@@ -35,6 +35,9 @@ namespace ProjectDAW
             services.AddDbContext<FacultateContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IAdresaRepository, AdresaRepository>();
             services.AddTransient<IAdresaService, AdresaService>();
+
+            services.AddTransient<IFacultateRepository, FacultateRepository>();
+            services.AddTransient<IFacultateService, FacultateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -30,7 +30,7 @@ namespace ProiectDAW.Data
             builder.Entity<Adresa>()
             .HasOne(x => x.Facultate)
             .WithOne(y => y.Adresa)
-            .HasForeignKey <Facultate>(z => z.FacultateId);
+            .HasForeignKey <Facultate>(z => z.AdresaId);
 
             builder.Entity<UserRole>()
                 .HasOne(x => x.User)

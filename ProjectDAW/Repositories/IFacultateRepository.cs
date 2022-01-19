@@ -8,8 +8,8 @@ namespace ProjectDAW.Repositories
 {
     public interface IFacultateRepository : IGenericRepository<Facultate>
     {
-        Facultate GetFacultateaAllDetails(int id);
-        List<Facultate> GetFacultatiAllDetails();
+        Facultate GetFacultateAllDetails(int id);
+        List<Facultate> GetFacultateAllDetails();
         List<Facultate> GetAllWithInclude();
         List<Facultate> GetAllWithJoin();
     }
