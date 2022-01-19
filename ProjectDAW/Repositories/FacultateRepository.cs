@@ -28,7 +28,7 @@ namespace ProjectDAW.Repositories
 
         public List<Facultate> GetAllWithInclude()
         {
-            return _table.Include(x => x.Useri).ToList();
+            return _table.Include(x => x.Adresa).ToList();
         }
 
         public List<Facultate> GetAllWithJoin()

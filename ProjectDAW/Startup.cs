@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProiectDAW.Data;
+using ProjectDAW.Auth;
 using ProjectDAW.Repositories;
 using ProjectDAW.Services;
 using ProjectDAW.Services.IServices;
@@ -38,6 +39,15 @@ namespace ProjectDAW
 
             services.AddTransient<IFacultateRepository, FacultateRepository>();
             services.AddTransient<IFacultateService, FacultateService>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
+
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // In production, the Angular files will be served from this directory
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,15 +63,22 @@ namespace ProjectDAW
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
 
             app.UseRouting();
+
+            app.UseMiddleware<Jwt>();
 
             app.UseEndpoints(endpoints =>
             {
